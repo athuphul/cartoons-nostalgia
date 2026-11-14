@@ -34,15 +34,15 @@
 
     // Channel metadata
     channels: [
-      { num: 1, name: 'CARTOON NETWORK', badge: 'Sunday Flow', mode: 'broadcast', desc: 'Authentic 90s Broadcast: Intro ➔ Episode ➔ Commercial ➔ Next Show' },
-      { num: 2, name: 'DOORDARSHAN SUNDAY', badge: 'DD Classics', mode: 'dd_classic', desc: 'Jungle Book (Mowgli), TaleSpin, DuckTales Hindi & vintage DD ads' },
-      { num: 3, name: 'POGO & TOONAMI', badge: 'Action/Anime', mode: 'pogo', desc: 'Pokémon, Captain Planet, Powerpuff Girls & Swat Kats' },
-      { num: 4, name: 'INTROS MARATHON', badge: 'Themes Only', mode: 'intros', desc: 'Non-stop cartoon title tracks & opening theme songs' },
-      { num: 5, name: '90s COMMERCIALS', badge: 'Vintage Ads', mode: 'ads', desc: 'Dhara Jalebi, Nirma, Cadbury, Bajaj Chetak & classic 90s ads' },
-      { num: 6, name: 'FULL EPISODES', badge: 'Shows Only', mode: 'episodes', desc: 'Tom & Jerry, Popeye, Jungle Book, Mr. Bean animated episodes' },
-      { num: 7, name: 'DISNEY AFTERNOON', badge: 'Disney Kids', mode: 'disney', desc: 'DuckTales, TaleSpin, Aladdin & retro Disney cartoons' },
-      { num: 8, name: 'ACTION STRIKE', badge: 'Heroes', mode: 'action', desc: 'Swat Kats, Spider-Man 1994, Superman & animated heroes' },
-      { num: 9, name: 'RANDOM RETRO TV', badge: 'Shuffle', mode: 'shuffle', desc: 'Random nostalgic blend across all cartoons and commercial breaks' }
+      { num: 1, name: 'CARTOON NETWORK', badge: 'CN Classics', mode: 'cn', desc: 'Ed, Edd n Eddy, Dexter, Powerpuff Girls, Johnny Bravo & Swat Kats' },
+      { num: 2, name: 'DISNEY CHANNEL', badge: 'Disney Hits', mode: 'disney', desc: 'Hannah Montana, Suite Life of Zack & Cody / on Deck, That\'s So Raven, Phineas & Ferb, Life with Derek' },
+      { num: 3, name: 'HUNGAMA TV', badge: 'Anime & Hungama', mode: 'hungama', desc: 'Shinchan (Hindi), Doraemon (Hindi), Pokémon & anime hits' },
+      { num: 4, name: 'NICKELODEON', badge: 'Nick Classic', mode: 'nick', desc: 'Drake & Josh, vintage Nick shows & classic toons' },
+      { num: 5, name: 'DOORDARSHAN SUNDAY', badge: 'DD Classics', mode: 'dd', desc: 'The Jungle Book (Mowgli), DuckTales Hindi, TaleSpin & classic DD ads' },
+      { num: 6, name: 'ICONIC COMMERCIALS', badge: 'Vintage Ads', mode: 'ads', desc: 'Center Fruit (Laplapayi), Tata Docomo, Vodafone Zoozoos, Men Will Be Men, Set Wet, Dhara Jalebi, Nirma' },
+      { num: 7, name: 'ALL INTROS MARATHON', badge: 'Themes Only', mode: 'intros', desc: 'Non-stop cartoon & teen show opening theme songs' },
+      { num: 8, name: 'FULL EPISODES', badge: 'Shows Only', mode: 'episodes', desc: 'Shinchan, Doraemon, Tom & Jerry, Popeye, Jungle Book, Mr. Bean' },
+      { num: 9, name: 'RETRO TV SURF', badge: 'Shuffle', mode: 'shuffle', desc: 'Random nostalgic blend across all cartoons, teen shows, and commercial breaks' }
     ]
   };
 
@@ -517,20 +517,7 @@
 
     const mode = state.currentMode;
 
-    if (mode === 'broadcast') {
-      // Sunday Morning Broadcast Flow:
-      // Intro ➔ Episode ➔ Commercial Ad Break ➔ Next Intro!
-      if (state.broadcastStep === 'intro') {
-        state.broadcastStep = 'episode';
-        playCategoryNext('episode');
-      } else if (state.broadcastStep === 'episode') {
-        state.broadcastStep = 'ad';
-        playCategoryNext('ad');
-      } else {
-        state.broadcastStep = 'intro';
-        playCategoryNext('intro');
-      }
-    } else if (mode === 'intros') {
+    if (mode === 'intros') {
       state.broadcastStep = 'intro';
       playCategoryNext('intro');
     } else if (mode === 'ads') {
@@ -539,8 +526,15 @@
     } else if (mode === 'episodes') {
       state.broadcastStep = 'episode';
       playCategoryNext('episode');
-    } else if (mode === 'dd_classic') {
-      // Doordarshan themed: alternate DD intros, episodes and nostalgic ads
+    } else if (mode === 'shuffle') {
+      // Pick random category and item
+      const cats = ['intro', 'episode', 'ad'];
+      const chosenCat = cats[Math.floor(Math.random() * cats.length)];
+      state.broadcastStep = chosenCat;
+      playCategoryRandom(chosenCat);
+    } else {
+      // Broadcast modes (cn, disney, hungama, nick, dd, broadcast, etc.):
+      // Authentic loop: Intro ➔ Episode ➔ Commercial Break ➔ Next Intro!
       if (state.broadcastStep === 'intro') {
         state.broadcastStep = 'episode';
         playCategoryNext('episode');
@@ -551,16 +545,6 @@
         state.broadcastStep = 'intro';
         playCategoryNext('intro');
       }
-    } else if (mode === 'shuffle') {
-      // Pick random category and item
-      const cats = ['intro', 'episode', 'ad'];
-      const chosenCat = cats[Math.floor(Math.random() * cats.length)];
-      state.broadcastStep = chosenCat;
-      playCategoryRandom(chosenCat);
-    } else {
-      // Default to broadcast sequence
-      state.broadcastStep = state.broadcastStep === 'intro' ? 'episode' : (state.broadcastStep === 'episode' ? 'ad' : 'intro');
-      playCategoryNext(state.broadcastStep);
     }
   }
 
@@ -599,10 +583,39 @@
     loadVideoById(vid, item);
   }
 
+  function filterIntros(keywords) {
+    const matched = state.intros.filter(item => {
+      const target = `${item.channel || ''} ${item.show || ''} ${item.title || ''}`.toLowerCase();
+      return keywords.some(k => target.includes(k.toLowerCase()));
+    });
+    return matched.length ? matched : state.intros;
+  }
+
   function getListByCategory(cat) {
-    if (cat === 'intro') return state.intros;
-    if (cat === 'ad') return state.ads;
-    if (cat === 'episode') return state.episodes;
+    if (cat === 'intro') {
+      const mode = state.currentMode;
+      if (mode === 'cn') return filterIntros(['Cartoon Network', 'Ed, Edd', 'Powerpuff', 'Dexter', 'Johnny Bravo', 'Swat Kats', 'Courage']);
+      if (mode === 'disney') return filterIntros(['Disney', 'Hannah Montana', 'Suite Life', 'Raven', 'Derek', 'Phineas', 'DuckTales']);
+      if (mode === 'hungama') return filterIntros(['Hungama', 'Shinchan', 'Doraemon', 'Pok']);
+      if (mode === 'nick') return filterIntros(['Nickelodeon', 'Drake & Josh', 'Nick']);
+      if (mode === 'dd') return filterIntros(['Doordarshan', 'Jungle Book', 'TaleSpin', 'DuckTales']);
+      return state.intros;
+    }
+    if (cat === 'ad') {
+      return state.ads;
+    }
+    if (cat === 'episode') {
+      const mode = state.currentMode;
+      if (mode === 'hungama') {
+        const matches = state.episodes.filter(e => /shinchan|doraemon/i.test(e.show || e.title));
+        if (matches.length) return matches;
+      }
+      if (mode === 'dd') {
+        const matches = state.episodes.filter(e => /jungle book|mowgli/i.test(e.show || e.title));
+        if (matches.length) return matches;
+      }
+      return state.episodes;
+    }
     return state.intros;
   }
 

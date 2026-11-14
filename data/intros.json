@@ -1,68 +1,142 @@
 [
   {
-    "id": "H0IQBWWabuU",
-    "title": "Swat Kats: The Radical Squadron - Opening Theme",
-    "url": "https://www.youtube.com/watch?v=H0IQBWWabuU",
-    "show": "Swat Kats"
+    "id": "ar_EmK1zuSk",
+    "title": "Drake & Josh - Opening Theme (Found a Way)",
+    "url": "https://www.youtube.com/watch?v=ar_EmK1zuSk",
+    "show": "Drake & Josh",
+    "channel": "Nickelodeon"
   },
   {
-    "id": "3X6WEHM-7gU",
-    "title": "DuckTales Theme Song (Hindi Title Track)",
-    "url": "https://www.youtube.com/watch?v=3X6WEHM-7gU",
-    "show": "DuckTales"
+    "id": "gpH_PIqT-q8",
+    "title": "That's So Raven - Theme Song",
+    "url": "https://www.youtube.com/watch?v=gpH_PIqT-q8",
+    "show": "That's So Raven",
+    "channel": "Disney Channel"
   },
   {
-    "id": "84UqM0Hee0M",
-    "title": "The Jungle Book (Mowgli) - Jungle Jungle Baat Chali Hai (Hindi)",
-    "url": "https://www.youtube.com/watch?v=84UqM0Hee0M",
-    "show": "The Jungle Book"
+    "id": "CxNZYNMoMZ4",
+    "title": "Life with Derek - Official Theme Song",
+    "url": "https://www.youtube.com/watch?v=CxNZYNMoMZ4",
+    "show": "Life with Derek",
+    "channel": "Disney Channel"
   },
   {
-    "id": "6xKWiCMKKJg",
-    "title": "Pokémon Season 1: Indigo League - Opening Theme (Gotta Catch 'Em All)",
-    "url": "https://www.youtube.com/watch?v=6xKWiCMKKJg",
-    "show": "Pokémon"
+    "id": "_9dYvfao6WY",
+    "title": "The Suite Life of Zack & Cody - Theme Song",
+    "url": "https://www.youtube.com/watch?v=_9dYvfao6WY",
+    "show": "The Suite Life of Zack & Cody",
+    "channel": "Disney Channel"
+  },
+  {
+    "id": "4w9VQ8KnKIY",
+    "title": "The Suite Life on Deck - Extended Theme Song",
+    "url": "https://www.youtube.com/watch?v=4w9VQ8KnKIY",
+    "show": "The Suite Life on Deck",
+    "channel": "Disney Channel"
+  },
+  {
+    "id": "nDMIuuO_PQo",
+    "title": "Hannah Montana - The Best of Both Worlds",
+    "url": "https://www.youtube.com/watch?v=nDMIuuO_PQo",
+    "show": "Hannah Montana",
+    "channel": "Disney Channel"
+  },
+  {
+    "id": "1BPLXepRC8E",
+    "title": "Ed, Edd n Eddy - Opening Theme Song",
+    "url": "https://www.youtube.com/watch?v=1BPLXepRC8E",
+    "show": "Ed, Edd n Eddy",
+    "channel": "Cartoon Network"
   },
   {
     "id": "f7MiaSr-0ug",
     "title": "The Powerpuff Girls - Opening Theme Song",
     "url": "https://www.youtube.com/watch?v=f7MiaSr-0ug",
-    "show": "The Powerpuff Girls"
+    "show": "The Powerpuff Girls",
+    "channel": "Cartoon Network"
   },
   {
     "id": "Ya3Q9OLk25g",
-    "title": "Dexter's Laboratory - Intro Theme Song",
+    "title": "Dexter's Laboratory - Intro Theme",
     "url": "https://www.youtube.com/watch?v=Ya3Q9OLk25g",
-    "show": "Dexter's Laboratory"
+    "show": "Dexter's Laboratory",
+    "channel": "Cartoon Network"
+  },
+  {
+    "id": "d3cxSEgrOvs",
+    "title": "Phineas and Ferb - Today is Gonna Be a Great Day (Bowling for Soup)",
+    "url": "https://www.youtube.com/watch?v=d3cxSEgrOvs",
+    "show": "Phineas & Ferb",
+    "channel": "Disney Channel"
+  },
+  {
+    "id": "Ir-EjKQI5T8",
+    "title": "Johnny Bravo - Opening Theme Song",
+    "url": "https://www.youtube.com/watch?v=Ir-EjKQI5T8",
+    "show": "Johnny Bravo",
+    "channel": "Cartoon Network"
+  },
+  {
+    "id": "0twHv5ARNmc",
+    "title": "Shinchan - Mera Naam Bhi Shinchan Hai (Hindi Theme Song)",
+    "url": "https://www.youtube.com/watch?v=0twHv5ARNmc",
+    "show": "Shinchan",
+    "channel": "Hungama"
+  },
+  {
+    "id": "BusGZ7YjsX8",
+    "title": "Doraemon - Zindagi Sawar Du (Hindi Title Track)",
+    "url": "https://www.youtube.com/watch?v=BusGZ7YjsX8",
+    "show": "Doraemon",
+    "channel": "Hungama"
+  },
+  {
+    "id": "H0IQBWWabuU",
+    "title": "Swat Kats: The Radical Squadron - Opening Theme",
+    "url": "https://www.youtube.com/watch?v=H0IQBWWabuU",
+    "show": "Swat Kats",
+    "channel": "Cartoon Network"
+  },
+  {
+    "id": "84UqM0Hee0M",
+    "title": "The Jungle Book (Mowgli) - Jungle Jungle Baat Chali Hai (Hindi)",
+    "url": "https://www.youtube.com/watch?v=84UqM0Hee0M",
+    "show": "The Jungle Book",
+    "channel": "Doordarshan"
+  },
+  {
+    "id": "3X6WEHM-7gU",
+    "title": "DuckTales Theme Song (Hindi Title Track)",
+    "url": "https://www.youtube.com/watch?v=3X6WEHM-7gU",
+    "show": "DuckTales",
+    "channel": "Disney Channel"
+  },
+  {
+    "id": "6xKWiCMKKJg",
+    "title": "Pokémon Season 1: Indigo League - Opening Theme (Gotta Catch 'Em All)",
+    "url": "https://www.youtube.com/watch?v=6xKWiCMKKJg",
+    "show": "Pokémon",
+    "channel": "Cartoon Network"
   },
   {
     "id": "7Kdsy6Fnr8s",
     "title": "Courage The Cowardly Dog - Theme Song Intro",
     "url": "https://www.youtube.com/watch?v=7Kdsy6Fnr8s",
-    "show": "Courage The Cowardly Dog"
+    "show": "Courage The Cowardly Dog",
+    "channel": "Cartoon Network"
   },
   {
     "id": "W5pnY9SrD5I",
     "title": "TaleSpin Hindi Theme Song (Zindagi Toofan Hai)",
     "url": "https://www.youtube.com/watch?v=W5pnY9SrD5I",
-    "show": "TaleSpin"
-  },
-  {
-    "id": "OiYjTb3opAA",
-    "title": "Captain Planet and the Planeteers - Intro Theme",
-    "url": "https://www.youtube.com/watch?v=OiYjTb3opAA",
-    "show": "Captain Planet"
-  },
-  {
-    "id": "3cu0KOzunpI",
-    "title": "Tom And Jerry - Classic Opening Theme",
-    "url": "https://www.youtube.com/watch?v=3cu0KOzunpI",
-    "show": "Tom & Jerry"
+    "show": "TaleSpin",
+    "channel": "Doordarshan"
   },
   {
     "id": "DZGN9fZvQhc",
     "title": "Spider-Man (1994) Animated Series - Opening Theme",
     "url": "https://www.youtube.com/watch?v=DZGN9fZvQhc",
-    "show": "Spider-Man"
+    "show": "Spider-Man",
+    "channel": "Fox Kids"
   }
 ]
