@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nostalgia TV - 90s Cartoon & Commercial Simulator</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Ambient Room / Vintage Living Room Wrapper -->
+  <div class="room-container" id="roomContainer">
+    <!-- Background Image Container -->
+    <div class="tv-stage" id="tvStage">
+      <!-- The Watercolor Illustration -->
+      <img src="assets/tv_living_room.jpg" alt="Vintage Indian Living Room TV" class="living-room-bg" id="livingRoomBg" draggable="false">
+
+      <!-- Interactive TV Screen Mounted Inside the TV Bezel -->
+      <div class="crt-monitor" id="crtMonitor">
+        <!-- Power Off Dark Screen Screen / Reflection State -->
+        <div class="screen-glass off" id="screenGlass">
+          <!-- CRT Screen Effects Overlays -->
+          <div class="crt-scanlines" id="scanlinesOverlay"></div>
+          <div class="crt-glare"></div>
+          <div class="crt-vignette"></div>
+
+          <!-- Analog Static Snow Canvas -->
+          <canvas id="staticCanvas" class="static-canvas"></canvas>
+
+          <!-- YouTube Player Container -->
+          <div class="player-wrapper" id="playerWrapper">
+            <div id="youtubePlayer"></div>
+          </div>
+
+          <!-- CRT Power Turn-On Flash Effect -->
+          <div class="crt-turn-on-flash" id="turnOnFlash"></div>
+
+          <!-- On-Screen Display (OSD) -->
+          <div class="crt-osd" id="crtOsd">
+            <div class="osd-top-row">
+              <span class="osd-channel" id="osdChannel">CH 01</span>
+              <span class="osd-network" id="osdNetwork">CARTOON NETWORK</span>
+            </div>
+            <div class="osd-title" id="osdTitle">SWAT KATS</div>
+            <div class="osd-badge" id="osdBadge">CARTOON INTRO</div>
+            <div class="osd-volume-bar" id="osdVolumeBar">
+              VOL <span id="osdVolumeTicks">■■■■■■□□□□</span>
+            </div>
+          </div>
+
+          <!-- Initial Turn-On Standby Prompt -->
+          <div class="screen-standby" id="screenStandby">
+            <div class="standby-content">
+              <div class="power-glyph">⚡</div>
+              <div class="standby-text">TV IS IN STANDBY</div>
+              <button class="turn-on-btn" id="standbyTurnOnBtn">
+                <span class="btn-icon">▶</span> TURN ON TV
+              </button>
+              <div class="standby-hint">Or click the remote on the rug below</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TV Bezel Built-in Micro Controls (At bottom of CRT bezel) -->
+        <div class="tv-bezel-controls">
+          <button class="bezel-btn bezel-power" id="bezelPowerBtn" title="Power ON / OFF"></button>
+          <button class="bezel-btn bezel-ch-down" id="bezelChDown" title="CH -"></button>
+          <button class="bezel-btn bezel-ch-up" id="bezelChUp" title="CH +"></button>
+          <button class="bezel-btn bezel-vol-down" id="bezelVolDown" title="VOL -"></button>
+          <button class="bezel-btn bezel-vol-up" id="bezelVolUp" title="VOL +"></button>
+        </div>
+      </div>
+
+      <!-- Clickable Rug Remote Hotspot (Positions over the remote in the painting) -->
+      <div class="rug-remote-hotspot" id="rugRemoteHotspot" title="Click to pick up the TV Remote!">
+        <div class="hotspot-pulse"></div>
+        <div class="hotspot-tooltip">Pick up Remote</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Floating Retro Navigation / Status Bar -->
+  <header class="top-nav">
+    <div class="nav-left">
+      <div class="logo">
+        <span class="logo-icon">📺</span>
+        <span class="logo-title">CARTOONS NOSTALGIA</span>
+        <span class="logo-tag">90s Indian TV Simulator</span>
+      </div>
+    </div>
+
+    <!-- Live Program Status -->
+    <div class="live-status" id="liveStatus">
+      <span class="status-dot"></span>
+      <span class="now-playing-label">NOW PLAYING:</span>
+      <span class="now-playing-title" id="nowPlayingTitle">TV Off</span>
+      <span class="mode-pill" id="currentModePill">BROADCAST MODE</span>
+    </div>
+
+    <div class="nav-actions">
+      <button class="nav-btn" id="toggleRemoteBtn" title="Toggle Handheld Remote Control">
+        <span class="btn-icon">📱</span> Remote Control
+      </button>
+      <button class="nav-btn" id="openGuideBtn" title="Channel Guide & Video Manager">
+        <span class="btn-icon">📋</span> TV Guide & URLs
+      </button>
+      <button class="nav-btn" id="toggleScanlinesBtn" title="Toggle CRT Scanlines">
+        <span class="btn-icon">⚡</span> Scanlines
+      </button>
+    </div>
+  </header>
+
+  <!-- Interactive Handheld 90s TV Remote (Draggable / Floating) -->
+  <div class="remote-control-panel hidden" id="remoteControlPanel">
+    <div class="remote-header">
+      <div class="remote-brand">VIDEOCON / CROWN</div>
+      <button class="remote-close" id="closeRemoteBtn" title="Put down remote">&times;</button>
+    </div>
+
+    <div class="remote-body">
+      <!-- Power & Mute Row -->
+      <div class="remote-row">
+        <button class="remote-btn btn-power" id="remotePowerBtn" title="Power ON / OFF">
+          ⏻ POWER
+        </button>
+        <button class="remote-btn btn-mute" id="remoteMuteBtn" title="Mute">
+          🔇 MUTE
+        </button>
+      </div>
+
+      <!-- Channel & Volume Rockers -->
+      <div class="remote-rocker-section">
+        <div class="rocker-group">
+          <div class="rocker-label">CH</div>
+          <button class="remote-btn rocker-btn" id="remoteChUp" title="Next Channel">▲</button>
+          <button class="remote-btn rocker-btn" id="remoteChDown" title="Prev Channel">▼</button>
+        </div>
+
+        <div class="remote-center-display">
+          <div class="remote-ch-display" id="remoteChDisplay">CH 01</div>
+          <div class="remote-led" id="remoteLed"></div>
+        </div>
+
+        <div class="rocker-group">
+          <div class="rocker-label">VOL</div>
+          <button class="remote-btn rocker-btn" id="remoteVolUp" title="Volume Up">▲</button>
+          <button class="remote-btn rocker-btn" id="remoteVolDown" title="Volume Down">▼</button>
+        </div>
+      </div>
+
+      <!-- Number Pad (Channels 1-6 + Utilities) -->
+      <div class="remote-numpad">
+        <button class="remote-btn num-btn" data-channel="1">1<span class="num-sub">CN</span></button>
+        <button class="remote-btn num-btn" data-channel="2">2<span class="num-sub">DD</span></button>
+        <button class="remote-btn num-btn" data-channel="3">3<span class="num-sub">POGO</span></button>
+        <button class="remote-btn num-btn" data-channel="4">4<span class="num-sub">INTROS</span></button>
+        <button class="remote-btn num-btn" data-channel="5">5<span class="num-sub">ADS</span></button>
+        <button class="remote-btn num-btn" data-channel="6">6<span class="num-sub">SHOWS</span></button>
+        <button class="remote-btn num-btn" data-channel="7">7<span class="num-sub">DISNEY</span></button>
+        <button class="remote-btn num-btn" data-channel="8">8<span class="num-sub">ACTION</span></button>
+        <button class="remote-btn num-btn" data-channel="9">9<span class="num-sub">RANDOM</span></button>
+        <button class="remote-btn num-btn" id="remotePrevVideo" title="Previous Video">⏮</button>
+        <button class="remote-btn num-btn" data-channel="0">0<span class="num-sub">AV</span></button>
+        <button class="remote-btn num-btn" id="remoteNextVideo" title="Next Video">⏭</button>
+      </div>
+
+      <!-- Quick Category Selectors -->
+      <div class="remote-categories">
+        <button class="cat-btn active" id="btnModeBroadcast" data-mode="broadcast">
+          📺 Flow (All)
+        </button>
+        <button class="cat-btn" id="btnModeIntros" data-mode="intros">
+          🎵 Intros
+        </button>
+        <button class="cat-btn" id="btnModeAds" data-mode="ads">
+          📢 Ads
+        </button>
+        <button class="cat-btn" id="btnModeEpisodes" data-mode="episodes">
+          🎬 Episodes
+        </button>
+      </div>
+
+      <!-- Bottom Utilities -->
+      <div class="remote-bottom-row">
+        <button class="remote-utility-btn" id="remoteShuffleBtn" title="Shuffle Videos">
+          🔀 SHUFFLE
+        </button>
+        <button class="remote-utility-btn" id="remoteGuideBtn" title="TV Guide">
+          📖 GUIDE
+        </button>
+        <button class="remote-utility-btn" id="remoteStaticBtn" title="Tune Noise">
+          📻 STATIC
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TV Guide & Video URL Configuration Modal -->
+  <div class="guide-modal-backdrop hidden" id="guideModal">
+    <div class="guide-modal">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="modal-icon">📺</span> TV Program Guide & Video Configurations
+        </div>
+        <button class="modal-close" id="closeGuideBtn">&times;</button>
+      </div>
+
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="channels">📡 TV Channels</button>
+        <button class="modal-tab" data-tab="intros">🎵 Cartoon Intros (<span id="introsCount">0</span>)</button>
+        <button class="modal-tab" data-tab="ads">📢 Nostalgic Ads (<span id="adsCount">0</span>)</button>
+        <button class="modal-tab" data-tab="episodes">🎬 Episodes (<span id="episodesCount">0</span>)</button>
+        <button class="modal-tab" data-tab="add">➕ Add Custom Video / URL</button>
+        <button class="modal-tab" data-tab="files">📁 Files & Source Info</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Channels Tab -->
+        <div class="tab-pane active" id="tabChannels">
+          <p class="guide-hint">Select a channel to switch the TV immediately. Channel 1 runs the full nostalgic broadcast loop (Intro &rarr; Episode &rarr; Commercial Ad Break &rarr; Next Show).</p>
+          <div class="channels-grid" id="channelsGrid"></div>
+        </div>
+
+        <!-- Intros Tab -->
+        <div class="tab-pane" id="tabIntros">
+          <div class="pane-header">
+            <div>
+              <h3>Cartoon Title Intros</h3>
+              <p>Loaded from <code>data/intros.json</code> and <code>data/intros.txt</code></p>
+            </div>
+            <button class="action-btn" onclick="openAddModalWithCat('intro')">+ Add Intro URL</button>
+          </div>
+          <div class="video-list" id="introsList"></div>
+        </div>
+
+        <!-- Ads Tab -->
+        <div class="tab-pane" id="tabAds">
+          <div class="pane-header">
+            <div>
+              <h3>Nostalgic 90s & 2000s TV Commercials</h3>
+              <p>Loaded from <code>data/ads.json</code> and <code>data/ads.txt</code></p>
+            </div>
+            <button class="action-btn" onclick="openAddModalWithCat('ad')">+ Add Ad URL</button>
+          </div>
+          <div class="video-list" id="adsList"></div>
+        </div>
+
+        <!-- Episodes Tab -->
+        <div class="tab-pane" id="tabEpisodes">
+          <div class="pane-header">
+            <div>
+              <h3>Full Cartoon Episodes</h3>
+              <p>Loaded from <code>data/episodes.json</code> and <code>data/episodes.txt</code></p>
+            </div>
+            <button class="action-btn" onclick="openAddModalWithCat('episode')">+ Add Episode URL</button>
+          </div>
+          <div class="video-list" id="episodesList"></div>
+        </div>
+
+        <!-- Add Custom Video Tab -->
+        <div class="tab-pane" id="tabAdd">
+          <h3>Add Any YouTube URL or Video ID</h3>
+          <p>Paste any YouTube link (e.g. <code>https://www.youtube.com/watch?v=...</code> or <code>https://youtu.be/...</code>) to play it immediately or add it to one of your video lists.</p>
+          
+          <form class="add-video-form" id="addVideoForm">
+            <div class="form-group">
+              <label for="videoUrlInput">YouTube URL or Video ID:</label>
+              <input type="text" id="videoUrlInput" placeholder="https://www.youtube.com/watch?v=... or 11-char ID" required>
+            </div>
+
+            <div class="form-group">
+              <label for="videoTitleInput">Title / Show Name (Optional):</label>
+              <input type="text" id="videoTitleInput" placeholder="e.g. Swat Kats Opening 2">
+            </div>
+
+            <div class="form-group">
+              <label for="videoCategorySelect">Category / Target File:</label>
+              <select id="videoCategorySelect">
+                <option value="intro">Cartoon Intro (data/intros.json)</option>
+                <option value="ad">Nostalgic Ad (data/ads.json)</option>
+                <option value="episode">Full Cartoon Episode (data/episodes.json)</option>
+              </select>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn-secondary" id="btnPlayNow">▶ Play on TV Now</button>
+              <button type="submit" class="btn-primary" id="btnAddToList">💾 Add to List</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Files & Source Info Tab -->
+        <div class="tab-pane" id="tabFiles">
+          <h3>Configured Video Lists</h3>
+          <p>The simulator reads its playlist from three files in the <code>data/</code> folder. You can configure them as either <strong>JSON</strong> or plain <strong>text</strong> (one URL per line):</p>
+          
+          <div class="files-overview">
+            <div class="file-card">
+              <div class="file-icon">🎵</div>
+              <div class="file-info">
+                <strong>Cartoon Intros</strong>
+                <code>data/intros.json</code> / <code>data/intros.txt</code>
+                <p>Opening themes, catchy title tracks, and intro sequences.</p>
+              </div>
+            </div>
+
+            <div class="file-card">
+              <div class="file-icon">📢</div>
+              <div class="file-info">
+                <strong>Commercial Ads</strong>
+                <code>data/ads.json</code> / <code>data/ads.txt</code>
+                <p>Nostalgic 90s/2000s vintage Indian and retro advertisements played during commercial breaks.</p>
+              </div>
+            </div>
+
+            <div class="file-card">
+              <div class="file-icon">🎬</div>
+              <div class="file-info">
+                <strong>Cartoon Episodes</strong>
+                <code>data/episodes.json</code> / <code>data/episodes.txt</code>
+                <p>Full length cartoons and episodes that play between the intros and the commercial breaks.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="how-it-works-box">
+            <h4>💡 How the TV Broadcast Simulator Works:</h4>
+            <ol>
+              <li><strong>Broadcast Simulation Mode:</strong> Follows genuine 90s Sunday morning TV scheduling: plays a <em>Cartoon Intro</em> &rarr; then the full <em>Cartoon Episode</em> &rarr; then a <em>Vintage Commercial Break</em> &rarr; then the next <em>Cartoon Intro</em>.</li>
+              <li><strong>Interactive Living Room:</strong> The TV screen is embedded directly into the retro CRT television. You can also click the remote control lying on the rug to pick it up!</li>
+              <li><strong>Zero Dependencies:</strong> Runs with standard Python (<code>python3 server.py</code>) or any static HTTP server.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio elements & YouTube API -->
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="app.js"></script>
+</body>
+</html>
