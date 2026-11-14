@@ -22,10 +22,13 @@ Featuring an illustrated vintage living room with parents drinking tea, kids sit
     $$\text{Cartoon Intro} \longrightarrow \text{Full Episode} \longrightarrow \text{Vintage Commercial Break} \longrightarrow \text{Next Show Intro}\dots$$
   - Automatically advances to the next video as soon as the current one ends.
 
-- **Curated 90s Indian & Classic Content**:
-  - **Cartoon Intros**: *Swat Kats*, *The Jungle Book (Mowgli)*, *DuckTales (Hindi)*, *Pokémon*, *The Powerpuff Girls*, *Dexter's Laboratory*, *Courage the Cowardly Dog*, *TaleSpin*, *Captain Planet*, *Tom and Jerry*, *Spider-Man (1994)*.
-  - **Nostalgic 90s Ads**: *Dhara Jalebi* ("Jalebi?!"), *Washing Powder Nirma*, *Cadbury Dairy Milk (Cricket Match)*, *Hamara Bajaj*, *Action Shoes (School Time)*, *Fevicol*.
-  - **Cartoon Episodes**: *Tom & Jerry*, *The Jungle Book*, *Popeye the Sailor*, *Mr. Bean Animated*, *Superman (Fleischer 1941)*, *Looney Tunes (Bugs Bunny)*, *The Pink Panther*.
+- **Curated 90s & 2000s Nostalgic Content**:
+  - **Disney & Nickelodeon Intros**: *Drake & Josh*, *That's So Raven*, *Life with Derek*, *The Suite Life of Zack & Cody*, *The Suite Life on Deck*, *Hannah Montana*, *Phineas and Ferb*.
+  - **Cartoon Network Classics**: *Ed, Edd n Eddy*, *The Powerpuff Girls*, *Dexter's Laboratory*, *Johnny Bravo*, *Swat Kats*, *Courage the Cowardly Dog*, *Spider-Man (1994)*.
+  - **Hungama & Anime Classics**: *Shinchan* (Hindi Theme: "Mera Naam Bhi Shinchan Hai"), *Doraemon* (Hindi Track: "Zindagi Sawar Du"), *Pokémon*.
+  - **Doordarshan Hits**: *The Jungle Book (Mowgli: Jungle Jungle Baat Chali Hai)*, *DuckTales (Hindi)*, *TaleSpin (Hindi)*.
+  - **Iconic Indian Commercials**: *Center Fruit* ("Kaisi Jeebh Laplapayee"), *Tata Docomo* (Signature Tune), *Vodafone Zoozoos* (Classic IPL Ads), *Imperial Blue* ("Men Will Be Men"), *Set Wet* ("Very! Very! Sexy"), *Dhara Jalebi* ("Jalebi?!"), *Washing Powder Nirma*, *Cadbury Dairy Milk* (Cricket Match), *Hamara Bajaj*, *Action Shoes* (School Time), *Fevicol*.
+  - **Cartoon Episodes**: *Shinchan (Hindi)*, *Doraemon (Hindi)*, *Tom & Jerry*, *The Jungle Book*, *Popeye the Sailor*, *Mr. Bean Animated*, *Superman (Fleischer 1941)*, *Looney Tunes (Bugs Bunny)*, *The Pink Panther*.
 
 - **Interactive 90s Handheld Remote Control**:
   - Click on the remote lying on the carpet rug in the illustration to pick it up!
@@ -94,15 +97,15 @@ Videos are configured in clean, user-editable files inside the `data/` directory
 
 | Channel | Network / Name | Description |
 |:---:|:---|:---|
-| **01** | **Cartoon Network** | Full Sunday Morning broadcast simulation (Intros $\to$ Episodes $\to$ Ads) |
-| **02** | **Doordarshan Sunday** | Indian DD nostalgia: Mowgli, DuckTales Hindi, TaleSpin & classic DD ads |
-| **03** | **Pogo & Toonami** | Pokémon, Captain Planet, Powerpuff Girls & Swat Kats |
-| **04** | **Intros Marathon** | Non-stop cartoon opening theme songs |
-| **05** | **90s Commercials** | Non-stop retro Indian TV advertisements |
-| **06** | **Full Episodes** | Full cartoon episodes marathon |
-| **07** | **Disney Afternoon** | DuckTales, TaleSpin, Aladdin & retro Disney cartoons |
-| **08** | **Action Strike** | Action superheroes: Swat Kats, Spider-Man, Superman |
-| **09** | **Random Retro TV** | Shuffled mix of everything |
+| **01** | **Cartoon Network** | Ed, Edd n Eddy, Dexter's Lab, Powerpuff Girls, Johnny Bravo, Swat Kats |
+| **02** | **Disney Channel** | Hannah Montana, Suite Life of Zack & Cody / on Deck, That's So Raven, Phineas & Ferb, Life with Derek |
+| **03** | **Hungama TV** | Shinchan (Hindi), Doraemon (Hindi), Pokémon & anime favorites |
+| **04** | **Nickelodeon** | Drake & Josh, classic Nick shows & cartoons |
+| **05** | **Doordarshan Sunday** | Indian DD nostalgia: Mowgli Jungle Book, DuckTales Hindi, TaleSpin & classic DD ads |
+| **06** | **Iconic Commercials** | Center Fruit (Laplapayi), Tata Docomo, Vodafone Zoozoos, Men Will Be Men, Set Wet, Dhara, Nirma |
+| **07** | **All Intros Marathon** | Non-stop cartoon & teen show opening theme songs |
+| **08** | **Full Episodes** | Shinchan, Doraemon, Tom & Jerry, Popeye, Jungle Book, Mr. Bean animated episodes |
+| **09** | **Retro TV Surf** | Shuffled mix of everything |
 
 ---
 
