@@ -1,0 +1,14 @@
+# Nostalgic Cartoon Intros
+# Add one YouTube URL or Video ID per line
+
+https://www.youtube.com/watch?v=H0IQBWWabuU # Swat Kats
+https://www.youtube.com/watch?v=3X6WEHM-7gU # DuckTales (Hindi)
+https://www.youtube.com/watch?v=84UqM0Hee0M # The Jungle Book (Jungle Jungle Baat Chali Hai)
+https://www.youtube.com/watch?v=6xKWiCMKKJg # Pokémon Season 1
+https://www.youtube.com/watch?v=f7MiaSr-0ug # The Powerpuff Girls
+https://www.youtube.com/watch?v=Ya3Q9OLk25g # Dexter's Laboratory
+https://www.youtube.com/watch?v=7Kdsy6Fnr8s # Courage The Cowardly Dog
+https://www.youtube.com/watch?v=W5pnY9SrD5I # TaleSpin (Hindi)
+https://www.youtube.com/watch?v=OiYjTb3opAA # Captain Planet
+https://www.youtube.com/watch?v=3cu0KOzunpI # Tom & Jerry Classic
+https://www.youtube.com/watch?v=DZGN9fZvQhc # Spider-Man 1994

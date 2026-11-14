@@ -1,0 +1,9 @@
+# Nostalgic 90s & 2000s TV Commercials
+# Add one YouTube URL or Video ID per line
+
+https://www.youtube.com/watch?v=nhzGDj31CVE # Dhara Jalebi (1990s)
+https://www.youtube.com/watch?v=wpj2qkaE7YQ # Washing Powder Nirma
+https://www.youtube.com/watch?v=e7JATezA1nY # Cadbury Dairy Milk - Cricket Match
+https://www.youtube.com/watch?v=scltYH13uEY # Hamara Bajaj (1989)
+https://www.youtube.com/watch?v=ax5Fl7huJZw # Action Shoes School Time
+https://www.youtube.com/watch?v=1vJI58t7lJI # Fevicol Classic

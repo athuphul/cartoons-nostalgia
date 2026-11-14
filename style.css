@@ -1,0 +1,1326 @@
+/* ==========================================================================
+   NOSTALGIA TV - 90s Vintage Living Room & CRT Simulator Stylesheet
+   ========================================================================== */
+
+:root {
+  --bg-dark: #121016;
+  --bg-living-room: #f5eedb;
+  --crt-green: #39ff14;
+  --crt-amber: #ffb000;
+  --wood-border: #4a2e18;
+  --remote-bg: #222227;
+  --remote-btn-bg: #35363e;
+  --remote-btn-active: #4a4d58;
+  --accent-red: #e63946;
+  --accent-gold: #e9c46a;
+  --accent-blue: #457b9d;
+  --text-main: #2b2b2b;
+  --text-light: #f1faee;
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-crt: 'VT323', monospace;
+  --font-ui: 'Outfit', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-family: var(--font-ui);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* ==========================================================================
+   Top Navigation & Live Status Bar
+   ========================================================================== */
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  background: rgba(18, 16, 22, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 100;
+}
+
+.nav-left .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  font-size: 1.6rem;
+}
+
+.logo-title {
+  font-family: var(--font-pixel);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  color: var(--accent-gold);
+  text-shadow: 0 0 10px rgba(233, 196, 106, 0.4);
+}
+
+.logo-tag {
+  font-size: 0.75rem;
+  color: #8b8f9e;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 6px;
+}
+
+.live-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  max-width: 480px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-red);
+  box-shadow: 0 0 8px var(--accent-red);
+  animation: pulse-dot 2s infinite;
+}
+
+.status-dot.playing {
+  background: var(--crt-green);
+  box-shadow: 0 0 8px var(--crt-green);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.now-playing-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #888;
+  letter-spacing: 0.5px;
+}
+
+.now-playing-title {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #fff;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.mode-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: rgba(69, 123, 157, 0.3);
+  color: #a8dadc;
+  border: 1px solid rgba(69, 123, 157, 0.5);
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.nav-btn:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Room & Living Room Stage
+   ========================================================================== */
+.room-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 20px;
+  position: relative;
+  background: radial-gradient(circle at center, #24222f 0%, #0d0c10 100%);
+}
+
+.tv-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  aspect-ratio: 1024 / 558;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 100px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--bg-living-room);
+}
+
+.living-room-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   CRT Monitor Overlay (Positioned on TV Screen)
+   Coordinates on 1024x558:
+   left: 33.79%, top: 31.54%, width: 35.55%, height: 46.95%
+   ========================================================================== */
+.crt-monitor {
+  position: absolute;
+  left: 33.79%;
+  top: 31.54%;
+  width: 35.55%;
+  height: 46.95%;
+  border-radius: 4.8% / 3.8%;
+  overflow: hidden;
+  z-index: 20;
+  box-shadow: 
+    inset 0 0 25px rgba(0, 0, 0, 0.95),
+    inset 0 0 8px rgba(0, 0, 0, 0.9);
+  background-color: #050505;
+}
+
+.screen-glass {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+.screen-glass.off .player-wrapper {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.screen-glass.off .crt-scanlines {
+  opacity: 0.15;
+}
+
+.screen-glass.off .screen-standby {
+  display: flex;
+}
+
+/* YouTube Player Container */
+.player-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  background: #000;
+}
+
+.player-wrapper iframe,
+.player-wrapper div {
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+}
+
+/* ==========================================================================
+   CRT Authentic Glass Overlays & Effects
+   ========================================================================== */
+
+/* Scanlines */
+.crt-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.35) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.crt-scanlines.disabled {
+  display: none;
+}
+
+/* Curved CRT Glare Highlight */
+.crt-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 25% 20%, 
+    rgba(255, 255, 255, 0.18) 0%, 
+    rgba(255, 255, 255, 0.05) 30%, 
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 9;
+}
+
+/* CRT Vignette / Dark Rounded Edges */
+.crt-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 
+    inset 0 0 35px rgba(0, 0, 0, 0.85),
+    inset 0 0 10px rgba(0, 0, 0, 0.95);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Static Noise Canvas */
+.static-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.static-canvas.active {
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   CRT Power Turn-On Animation
+   ========================================================================== */
+.crt-turn-on-flash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  z-index: 15;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.crt-turn-on-flash.animating {
+  animation: crtTurnOn 0.55s ease-out forwards;
+}
+
+@keyframes crtTurnOn {
+  0% {
+    transform: scale(0.01, 0.002);
+    opacity: 1;
+    filter: brightness(20);
+  }
+  30% {
+    transform: scale(1, 0.004);
+    opacity: 1;
+    filter: brightness(15);
+  }
+  60% {
+    transform: scale(1, 0.6);
+    opacity: 0.9;
+    filter: brightness(5);
+  }
+  85% {
+    transform: scale(1, 1);
+    opacity: 0.4;
+    filter: brightness(2);
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 0;
+    filter: brightness(1);
+  }
+}
+
+/* ==========================================================================
+   On-Screen Display (OSD)
+   ========================================================================== */
+.crt-osd {
+  position: absolute;
+  top: 6%;
+  left: 7%;
+  right: 7%;
+  z-index: 12;
+  font-family: var(--font-crt);
+  color: var(--crt-green);
+  text-shadow: 0 0 6px var(--crt-green), 0 0 12px rgba(57, 255, 20, 0.6);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  line-height: 1.1;
+}
+
+.crt-osd.visible {
+  opacity: 1;
+}
+
+.osd-top-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: clamp(14px, 1.8vw, 24px);
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.osd-title {
+  font-size: clamp(12px, 1.5vw, 20px);
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 1px;
+}
+
+.osd-badge {
+  display: inline-block;
+  background: rgba(57, 255, 20, 0.2);
+  border: 1px solid var(--crt-green);
+  padding: 1px 6px;
+  font-size: clamp(10px, 1.2vw, 15px);
+  margin-top: 3px;
+  border-radius: 2px;
+}
+
+.osd-volume-bar {
+  font-size: clamp(12px, 1.4vw, 18px);
+  margin-top: 5px;
+  letter-spacing: 1px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.osd-volume-bar.visible {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   TV Standby Screen Prompt
+   ========================================================================== */
+.screen-standby {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 7;
+  background: radial-gradient(circle at center, #11151a 0%, #030303 100%);
+  text-align: center;
+}
+
+.standby-content {
+  padding: 12px;
+}
+
+.power-glyph {
+  font-size: clamp(18px, 2.5vw, 32px);
+  color: var(--accent-gold);
+  margin-bottom: 6px;
+  animation: glow-pulse 2s infinite ease-in-out;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.9); }
+}
+
+.standby-text {
+  font-family: var(--font-pixel);
+  font-size: clamp(8px, 1.1vw, 14px);
+  color: #a8a8a8;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.turn-on-btn {
+  background: linear-gradient(180deg, #e63946 0%, #ba2d39 100%);
+  border: 2px solid #ff7b89;
+  color: #fff;
+  font-family: var(--font-pixel);
+  font-size: clamp(8px, 1vw, 13px);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.turn-on-btn:hover {
+  background: linear-gradient(180deg, #ff4d5d 0%, #d1303d 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(230, 57, 70, 0.6);
+}
+
+.turn-on-btn:active {
+  transform: translateY(0);
+}
+
+.standby-hint {
+  font-size: clamp(9px, 1vw, 13px);
+  color: #666;
+  margin-top: 10px;
+}
+
+/* ==========================================================================
+   TV Bezel Micro Controls (Physical tactile buttons on the TV)
+   ========================================================================== */
+.tv-bezel-controls {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  height: 18px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  padding-right: 12px;
+  z-index: 18;
+  opacity: 0.15;
+  transition: opacity 0.2s ease;
+}
+
+.tv-bezel-controls:hover {
+  opacity: 0.85;
+}
+
+.bezel-btn {
+  width: 10px;
+  height: 10px;
+  background: #333;
+  border: 1px solid #555;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+}
+
+.bezel-btn:active {
+  background: #777;
+}
+
+.bezel-power {
+  background: #900;
+  border-color: #f33;
+}
+
+/* ==========================================================================
+   Rug Remote Hotspot (Over the remote in the painting)
+   x = 650..700, y = 492..515 on 1024x558
+   left: ~63.8%, top: ~88.0%, width: ~5.4%, height: ~4.5%
+   ========================================================================== */
+.rug-remote-hotspot {
+  position: absolute;
+  left: 63.8%;
+  top: 88.0%;
+  width: 5.4%;
+  height: 4.5%;
+  cursor: pointer;
+  z-index: 25;
+  border-radius: 4px;
+}
+
+.hotspot-pulse {
+  position: absolute;
+  inset: -3px;
+  border: 2px dashed rgba(233, 196, 106, 0.8);
+  border-radius: 6px;
+  animation: pulse-border 2s infinite linear;
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+}
+
+.rug-remote-hotspot:hover .hotspot-pulse {
+  opacity: 1;
+  border-color: #39ff14;
+}
+
+@keyframes pulse-border {
+  0% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.08); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 0.4; }
+}
+
+.hotspot-tooltip {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.rug-remote-hotspot:hover .hotspot-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+/* ==========================================================================
+   Interactive Handheld 90s TV Remote (Floating / Draggable)
+   ========================================================================== */
+.remote-control-panel {
+  position: fixed;
+  bottom: 24px;
+  right: 28px;
+  width: 250px;
+  background: linear-gradient(165deg, #2c2d33 0%, #1a1a1f 100%);
+  border: 2px solid #4a4d57;
+  border-radius: 20px;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.8),
+    inset 0 2px 4px rgba(255, 255, 255, 0.15),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.7);
+  z-index: 200;
+  padding: 14px 16px 18px;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+  transform: scale(1);
+  opacity: 1;
+}
+
+.remote-control-panel.hidden {
+  transform: scale(0.8) translateY(60px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.remote-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 6px;
+}
+
+.remote-brand {
+  font-family: var(--font-pixel);
+  font-size: 0.55rem;
+  letter-spacing: 1px;
+  color: #7b8094;
+}
+
+.remote-close {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.remote-close:hover {
+  color: #fff;
+}
+
+/* Remote Body Buttons */
+.remote-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.remote-btn {
+  background: linear-gradient(180deg, #383a45 0%, #292a32 100%);
+  border: 1px solid #4e5261;
+  color: #e2e4ec;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  transition: all 0.1s ease;
+}
+
+.remote-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.remote-row {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-power {
+  flex: 1;
+  background: linear-gradient(180deg, #d90429 0%, #9b001d 100%);
+  border-color: #ef233c;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.btn-mute {
+  flex: 1;
+  font-size: 0.75rem;
+  padding: 8px;
+  color: #cbd5e1;
+}
+
+/* Rockers Section */
+.remote-rocker-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.rocker-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.rocker-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #8c90a4;
+  letter-spacing: 0.5px;
+}
+
+.rocker-btn {
+  width: 38px;
+  height: 30px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remote-center-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.remote-ch-display {
+  font-family: var(--font-crt);
+  color: var(--crt-green);
+  font-size: 1.3rem;
+  text-shadow: 0 0 5px var(--crt-green);
+  background: #000;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid #1a331a;
+}
+
+.remote-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #440000;
+  transition: background 0.1s ease, box-shadow 0.1s ease;
+}
+
+.remote-led.active {
+  background: #ff2222;
+  box-shadow: 0 0 8px #ff2222;
+}
+
+/* Number Pad */
+.remote-numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.num-btn {
+  padding: 8px 0;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+
+.num-sub {
+  font-size: 0.5rem;
+  color: #8e94a5;
+  font-weight: 700;
+}
+
+/* Categories Switcher */
+.remote-categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.cat-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #b0b4c4;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 6px 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cat-btn.active {
+  background: var(--accent-gold);
+  color: #1a1a1f;
+  font-weight: 700;
+  border-color: #ffd166;
+}
+
+/* Remote Bottom Row */
+.remote-bottom-row {
+  display: flex;
+  gap: 6px;
+}
+
+.remote-utility-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 6px 2px;
+  border-radius: 6px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+.remote-utility-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* ==========================================================================
+   TV Guide & Video Config Modal
+   ========================================================================== */
+.guide-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.guide-modal-backdrop.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.guide-modal {
+  background: #1e1d24;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #25242d;
+}
+
+.modal-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: #fff;
+}
+
+.modal-tabs {
+  display: flex;
+  overflow-x: auto;
+  background: #18171d;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 16px 0;
+}
+
+.modal-tab {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: #999;
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.modal-tab:hover {
+  color: #eee;
+}
+
+.modal-tab.active {
+  color: var(--accent-gold);
+  border-bottom-color: var(--accent-gold);
+}
+
+.modal-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+.guide-hint {
+  font-size: 0.85rem;
+  color: #a0a4b8;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+/* Channel Grid */
+.channels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.channel-card {
+  background: #282732;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.channel-card:hover {
+  background: #32313f;
+  border-color: var(--accent-gold);
+  transform: translateY(-2px);
+}
+
+.channel-card.active {
+  border-color: var(--crt-green);
+  background: #1e3323;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-num {
+  font-family: var(--font-pixel);
+  font-size: 0.75rem;
+  color: var(--accent-gold);
+}
+
+.card-badge {
+  font-size: 0.65rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #ccc;
+}
+
+.card-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+.card-desc {
+  font-size: 0.75rem;
+  color: #9da1b5;
+}
+
+/* Video Lists (Intros, Ads, Episodes) */
+.pane-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.pane-header h3 {
+  font-size: 1.05rem;
+  color: #fff;
+}
+
+.pane-header p {
+  font-size: 0.8rem;
+  color: #8e93a6;
+}
+
+.action-btn {
+  background: var(--accent-gold);
+  border: none;
+  color: #121016;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.action-btn:hover {
+  opacity: 0.9;
+}
+
+.video-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.video-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #262530;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 10px 14px;
+  border-radius: 8px;
+  gap: 12px;
+  transition: background 0.15s ease;
+}
+
+.video-item:hover {
+  background: #2f2e3c;
+}
+
+.video-item.now-playing {
+  border-color: var(--crt-green);
+  background: #172d1d;
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.item-idx {
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  color: #777;
+  width: 24px;
+}
+
+.item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #eee;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-sub {
+  font-size: 0.75rem;
+  color: #888;
+  display: flex;
+  gap: 10px;
+}
+
+.item-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.item-play-btn {
+  background: rgba(57, 255, 20, 0.15);
+  border: 1px solid var(--crt-green);
+  color: var(--crt-green);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.item-play-btn:hover {
+  background: var(--crt-green);
+  color: #000;
+}
+
+.item-remove-btn {
+  background: none;
+  border: none;
+  color: #777;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px;
+}
+
+.item-remove-btn:hover {
+  color: var(--accent-red);
+}
+
+/* Add Custom Video Form */
+.add-video-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+.form-group input,
+.form-group select {
+  background: #282733;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-family: var(--font-ui);
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--accent-gold);
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.btn-primary {
+  background: var(--accent-gold);
+  color: #121016;
+  font-weight: 700;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Files Overview Tab */
+.files-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 16px 0;
+}
+
+.file-card {
+  background: #272632;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+}
+
+.file-icon {
+  font-size: 1.8rem;
+}
+
+.file-info strong {
+  display: block;
+  font-size: 0.9rem;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.file-info code {
+  font-size: 0.75rem;
+  color: var(--accent-gold);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.file-info p {
+  font-size: 0.75rem;
+  color: #999;
+  line-height: 1.3;
+}
+
+.how-it-works-box {
+  background: #252430;
+  border-left: 4px solid var(--accent-gold);
+  padding: 14px 18px;
+  border-radius: 6px;
+  margin-top: 16px;
+}
+
+.how-it-works-box h4 {
+  font-size: 0.9rem;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.how-it-works-box ol {
+  padding-left: 18px;
+  font-size: 0.8rem;
+  color: #b0b4c4;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+@media (max-width: 900px) {
+  .top-nav {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+  .live-status {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+  }
+  .remote-control-panel {
+    bottom: 12px;
+    right: 12px;
+    width: 220px;
+    padding: 10px 12px;
+  }
+}

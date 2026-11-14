@@ -1,0 +1,10 @@
+# Nostalgic Full Cartoon Episodes
+# Add one YouTube URL or Video ID per line
+
+https://www.youtube.com/watch?v=pEl3-0GHyoQ # Tom and Jerry Classic Mega Compilation
+https://www.youtube.com/watch?v=f1Nn7TUwa2g # The Jungle Book (Hindi) - Mowgli Episode 1
+https://www.youtube.com/watch?v=26ZopF_pHDY # Popeye The Sailor Full Classic Episodes
+https://www.youtube.com/watch?v=HOYpAgWPTps # Mr Bean The Animated Series
+https://www.youtube.com/watch?v=H0ZQqPejhaE # Superman 1941 Fleischer Studios Classic
+https://www.youtube.com/watch?v=equDXjlJZd0 # Looney Tunes Bugs Bunny Classic Episodes
+https://www.youtube.com/watch?v=YZiGDqWNLX4 # The Pink Panther Show Episode 1
